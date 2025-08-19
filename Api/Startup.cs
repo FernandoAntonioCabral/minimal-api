@@ -86,7 +86,6 @@ namespace MinimalApi
                 options.UseMySql(Configuration.GetConnectionString("MySql"),
                 ServerVersion.AutoDetect(Configuration.GetConnectionString("MySql")));
             });
-            //adicionado
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -97,7 +96,14 @@ namespace MinimalApi
                             .AllowAnyHeader();
                     });
             });
-            // -----------
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -320,5 +326,4 @@ namespace MinimalApi
             });
         }
     }
-
 }
